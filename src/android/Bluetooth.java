@@ -1,8 +1,9 @@
 package cordova.plugin.bluetooth;
 
 
-import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
+import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.PluginResult;
 
 import android.Manifest;
 import android.app.Activity;
@@ -16,30 +17,43 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.os.Build;
 
-//key for obj
 
-private final String keyError="error";
-private final String keyMessage="message";
-private final String keyStatus="status";
-
-private final String statusEnabled="enabled";
-private final String statusDisabled="disabled";
-
-//Error Messages
-//Initialization
-private final String logNotEnabled="Bluetooth not enabled";
-private final String logNotDisabled="Bluetooth not disabled";
-private final String logNotInit="Bluetooth not initialized";
-private final String logOperationUnsupported="Operation unsupported";
-
-//General CallbackContext
-private CallbackContext initCallbackContext;
-private CallbackContext permissionsCallback;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 /**
  * This class echoes a string called from JavaScript.
  */
 public class Bluetooth extends CordovaPlugin {
+
+private final String keyError="error";
+    private final String keyMessage="message";
+    private final String keyStatus="status";
+
+    private final String statusEnabled="enabled";
+    private final String statusDisabled="disabled";
+
+    //Error Messages
+//Initialization
+    private final String logNotEnabled="Bluetooth not enabled";
+    private final String logNotDisabled="Bluetooth not disabled";
+    private final String logNotInit="Bluetooth not initialized";
+    private final String logOperationUnsupported="Operation unsupported";
+
+    //General CallbackContext
+    private CallbackContext initCallbackContext;
+    private CallbackContext permissionsCallback;
+
+    private static final int REQUEST_ENABLE_BT = 1;                                //Enable bluetooth request variable
+    private static final int REQUEST_DISCOVERABILITY = 1;                  //Make bluetooth discoverable request variable
+   private static int REQUEST_ACCESS_FINE_LOCATION= 1;
+
+    private BluetoothAdapter btAdapter; 
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -63,7 +77,7 @@ public class Bluetooth extends CordovaPlugin {
 
         cordova.requestPermission(this, REQUEST_ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
         // permissionsCallback = callbackContext;
-        initCallbackContext = CallbackContext;
+        initCallbackContext = callbackContext;
         JSONObject returnObj = new JSONObject();
 
         btAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -76,7 +90,7 @@ public class Bluetooth extends CordovaPlugin {
 
         } else {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            cordova.startActivityForResult(this, enableBtIntent, REQUEST_BT_ENABLE);
+            cordova.startActivityForResult(this, enableBtIntent, REQUEST_ENABLE_BT);
         }
 
 
