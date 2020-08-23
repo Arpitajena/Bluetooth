@@ -102,7 +102,7 @@ private final String keyError="error";
 
         if (requestCode == REQUEST_ENABLE_BT) {
 
-            if (resultCode == RESULT_OK) {
+            
 
                 if (initCallbackContext != null) {
                     JSONObject returnObj = new JSONObject();
@@ -118,7 +118,7 @@ private final String keyError="error";
 
                 //If user has enabled bluetooth, show list of paired devices
 
-            }
+            
 
         }
 
