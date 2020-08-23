@@ -7,6 +7,8 @@ import org.apache.cordova.PluginResult;
 
 import android.Manifest;
 import android.app.Activity;
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -75,7 +77,8 @@ private final String keyError="error";
             return;
         }
 
-        cordova.requestPermission(this, REQUEST_ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
+       // cordova.requestPermission(this, REQUEST_ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
+       PermissionHelper.requestPermission(this, REQUEST_ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION);
         // permissionsCallback = callbackContext;
         initCallbackContext = callbackContext;
         JSONObject returnObj = new JSONObject();
