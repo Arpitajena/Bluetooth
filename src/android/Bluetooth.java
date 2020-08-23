@@ -4,6 +4,7 @@ package cordova.plugin.bluetooth;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.PluginResult;
+import org.apache.cordova.PermissionHelper;
 
 import android.Manifest;
 import android.app.Activity;
